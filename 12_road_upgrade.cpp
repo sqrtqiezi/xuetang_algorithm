@@ -1,9 +1,10 @@
+#include <iostream>
 #include <vector>
 using namespace std;
 
 vector<int> Father, Rank, U, V, ans;
 
-int find(int x) {
+inline int find(int x) {
   while(Father[x] != x) {
     x = Father[x];
   }

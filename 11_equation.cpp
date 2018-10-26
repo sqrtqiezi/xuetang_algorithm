@@ -1,29 +1,33 @@
 #include <iostream>
-#include <tuple>
 #include <vector>
 using namespace std;
 
-const int N = 500000;
-int Father[N], Rank[N];
-int A[N], B[N];
+vector<int> Father, Rank, A, B;
 
-int find(int x) {
-  return Father[x] == x ? x : find(Father[x]);
+inline int find(int x) {
+  while(Father[x] != x) {
+    x = Father[x];
+  }
+  return x;
 }
 
 bool solve(int n, int m) {
   int a, b, e, cnt = 0;
 
+  Father.resize(n+1);
+  Rank.resize(n+1);
   for (int i = 1; i <= n; i++) {
     Father[i] = i;
     Rank[i] = 0;
   }
 
+  A.resize(0);
+  B.resize(0);
   while(m--) {
-    cin >> a >> b >> e;
+    scanf("%d%d%d", &a, &b, &e);
     if (e == 0) {
-      A[cnt] = a;
-      B[cnt] = b;
+      A.push_back(a);
+      B.push_back(b);
       cnt++;
     } else {
       int setA = find(a);
@@ -51,13 +55,13 @@ bool solve(int n, int m) {
 
 int main() {
   int t, n, m;
-  cin >> t; 
+  scanf("%d", &t);
   while (t--) {
-    cin >> n >> m;
+    scanf("%d%d", &n, &m);
     if (solve(n, m)) {
-      cout << "Yes" << endl;
+      printf("Yes\n");
     } else {
-      cout << "No" << endl;
+      printf("No\n");
     }
   }
 }
